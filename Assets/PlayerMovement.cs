@@ -21,8 +21,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            print("Cursor raycast hit" + cameraRaycaster.hit.collider.gameObject.name.ToString());
-            currentClickTarget = cameraRaycaster.hit.point;  // So not set in default case
+            print("Cursor raycast hit" + cameraRaycaster.Hit.collider.gameObject.name.ToString());
+            currentClickTarget = cameraRaycaster.Hit.point;  // So not set in default case
         }
         m_Character.Move(currentClickTarget - transform.position, false, false);
     }

@@ -15,6 +15,6 @@ public class Cursor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        print(cameraRayCaster.LayerHit);
+        //print(cameraRayCaster.LayerHit);
 	}
 }
