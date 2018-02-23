@@ -5,6 +5,8 @@ using UnityStandardAssets.Characters.ThirdPerson;
 [RequireComponent(typeof (ThirdPersonCharacter))]
 public class PlayerMovement : MonoBehaviour
 {
+    bool isInDirectMode = false;
+
     [SerializeField]
     float walkMoveStopRadius = 0.2f;
 
@@ -22,24 +24,47 @@ public class PlayerMovement : MonoBehaviour
     // Fixed update is called in sync with physics
     private void FixedUpdate()
     {
+        // TODO Allow Player to map later
+        if(Input.GetKeyDown(KeyCode.G)) // g for gamepad 
+        {
+            isInDirectMode = !isInDirectMode;
+        }
+
+        if(isInDirectMode)
+        {
+            // ProcessDirectMovement();
+        } 
+        else 
+        {
+            ProcessIndirectMovement(); // Mouse Movement    
+        }
+
+
+
+    }
+
+    private void ProcessIndirectMovement()
+    {
         if (Input.GetMouseButton(0))
         {
             print("Cursor raycast hit: " + cameraRaycaster.LayerHit);
 
-            switch(cameraRaycaster.LayerHit){
+            switch (cameraRaycaster.LayerHit)
+            {
                 case Layer.Enemy:
                     print("Not Moving to enemy");
                     break;
                 case Layer.Walkable:
-                    currentClickTarget = cameraRaycaster.Hit.point; 
+                    currentClickTarget = cameraRaycaster.Hit.point;
                     break;
                 default:
                     print("SHOULDNT BE HERE");
                     return;
             }
         }
+
         var playerToClickPoint = currentClickTarget - transform.position;
-        if(playerToClickPoint.magnitude >= walkMoveStopRadius)
+        if (playerToClickPoint.magnitude >= walkMoveStopRadius)
         {
             m_Character.Move(playerToClickPoint, false, false);
         }
@@ -47,8 +72,6 @@ public class PlayerMovement : MonoBehaviour
         {
             m_Character.Move(Vector3.zero, false, false);
         }
-
     }
-
 }
 
