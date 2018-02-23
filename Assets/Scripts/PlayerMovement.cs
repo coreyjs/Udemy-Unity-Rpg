@@ -30,17 +30,29 @@ public class PlayerMovement : MonoBehaviour
             isInDirectMode = !isInDirectMode;
         }
 
-        if(isInDirectMode)
+        if (isInDirectMode)
         {
-            // ProcessDirectMovement();
-        } 
-        else 
+            ProcessDirectMovement();
+        }
+        else
         {
             ProcessIndirectMovement(); // Mouse Movement    
         }
+    }
 
+    private void ProcessDirectMovement()
+    {
+        print("Direct Movement Enabled");
+        // read inputs
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        print(h + v);
+        // calculate camera relative direction to move:
 
+        Vector3 m_CamForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 m_Move = v * m_CamForward + h * Camera.main.transform.right;
 
+        m_Character.Move(Vector3.zero, false, false);
     }
 
     private void ProcessIndirectMovement()
