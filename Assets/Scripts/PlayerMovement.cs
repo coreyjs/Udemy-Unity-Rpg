@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 m_CamForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 m_Move = v * m_CamForward + h * Camera.main.transform.right;
 
-        m_Character.Move(Vector3.zero, false, false);
+        m_Character.Move(m_Move, false, false);
     }
 
     private void ProcessIndirectMovement()
