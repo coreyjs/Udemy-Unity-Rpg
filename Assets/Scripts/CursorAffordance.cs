@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CameraRaycaster))]
 public class CursorAffordance : MonoBehaviour 
 {
 
@@ -15,7 +16,7 @@ public class CursorAffordance : MonoBehaviour
     Texture2D unknownCursor = null;
 
     [SerializeField]
-    Vector2 cursorHotspot = new Vector2(96, 96);
+    Vector2 cursorHotspot = new Vector2(0, 0);
 
     CameraRaycaster cameraRayCaster;
 
@@ -32,7 +33,7 @@ public class CursorAffordance : MonoBehaviour
 
         if (cameraRayCaster != null)
         {
-            switch (cameraRayCaster.LayerHit)
+            switch (cameraRayCaster.currentLayerHit)
             {
                 case Layer.Walkable:
                     Cursor.SetCursor(walkCursor, cursorHotspot, CursorMode.Auto);
@@ -44,6 +45,7 @@ public class CursorAffordance : MonoBehaviour
                     Cursor.SetCursor(unknownCursor, cursorHotspot, CursorMode.Auto);
                     break;
                 default:
+                    Debug.Log("Dont know what cursor to show here");
                     break;
             }
         }

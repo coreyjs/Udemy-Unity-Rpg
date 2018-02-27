@@ -10,14 +10,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float walkMoveStopRadius = 0.2f;
 
-    ThirdPersonCharacter m_Character;   // A reference to the ThirdPersonCharacter on the object
+    ThirdPersonCharacter thirdPersonCharacterCharacter;   // A reference to the ThirdPersonCharacter on the object
     CameraRaycaster cameraRaycaster;
     Vector3 currentClickTarget;
         
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
-        m_Character = GetComponent<ThirdPersonCharacter>();
+        thirdPersonCharacterCharacter = GetComponent<ThirdPersonCharacter>();
         currentClickTarget = transform.position;
     }
 
@@ -50,19 +50,19 @@ public class PlayerMovement : MonoBehaviour
         print(h + v);
         // calculate camera relative direction to move:
 
-        Vector3 m_CamForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 m_Move = v * m_CamForward + h * Camera.main.transform.right;
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 movement = v * camForward + h * Camera.main.transform.right;
 
-        m_Character.Move(m_Move, false, false);
+        thirdPersonCharacterCharacter.Move(movement, false, false);
     }
 
     private void ProcessIndirectMovement()
     {
         if (Input.GetMouseButton(0))
         {
-            print("Cursor raycast hit: " + cameraRaycaster.LayerHit);
+            print("Cursor raycast hit: " + cameraRaycaster.currentLayerHit);
 
-            switch (cameraRaycaster.LayerHit)
+            switch (cameraRaycaster.currentLayerHit)
             {
                 case Layer.Enemy:
                     print("Not Moving to enemy");
@@ -79,11 +79,11 @@ public class PlayerMovement : MonoBehaviour
         var playerToClickPoint = currentClickTarget - transform.position;
         if (playerToClickPoint.magnitude >= walkMoveStopRadius)
         {
-            m_Character.Move(playerToClickPoint, false, false);
+            thirdPersonCharacterCharacter.Move(playerToClickPoint, false, false);
         }
         else
         {
-            m_Character.Move(Vector3.zero, false, false);
+            thirdPersonCharacterCharacter.Move(Vector3.zero, false, false);
         }
     }
 }
