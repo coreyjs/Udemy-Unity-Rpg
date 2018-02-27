@@ -16,7 +16,7 @@ public class CameraRaycaster : MonoBehaviour
     Layer m_layerHit;
     public Layer LayerHit { get { return m_layerHit; } }
 
-    void Start() // TODO Awake?
+    void Start() 
     {
         viewCamera = Camera.main;
     }

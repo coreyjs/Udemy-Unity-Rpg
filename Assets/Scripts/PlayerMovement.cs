@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.G)) // g for gamepad 
         {
             isInDirectMode = !isInDirectMode;
+            currentClickTarget = transform.position; // clear the click target
         }
 
         if (isInDirectMode)
