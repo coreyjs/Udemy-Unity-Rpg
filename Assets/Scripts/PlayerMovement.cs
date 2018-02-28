@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         // read inputs
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        print(h + v);
+       
         // calculate camera relative direction to move:
 
         Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
