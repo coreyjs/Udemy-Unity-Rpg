@@ -10,15 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float walkMoveStopRadius = 0.2f;
 
+    [SerializeField]
+    float attackMoveStopRadius = 5f;
+
     ThirdPersonCharacter thirdPersonCharacterCharacter;   // A reference to the ThirdPersonCharacter on the object
     CameraRaycaster cameraRaycaster;
-    Vector3 currentClickTarget;
+    Vector3 currentDestination, clickPoint;
         
+    
+
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
         thirdPersonCharacterCharacter = GetComponent<ThirdPersonCharacter>();
-        currentClickTarget = transform.position;
+        currentDestination = transform.position;
     }
 
     // Fixed update is called in sync with physics
@@ -28,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.G)) // g for gamepad 
         {
             isInDirectMode = !isInDirectMode;
-            currentClickTarget = transform.position; // clear the click target
+            currentDestination = transform.position; // clear the click target
         }
 
         if (isInDirectMode)
@@ -61,14 +66,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             print("Cursor raycast hit: " + cameraRaycaster.currentLayerHit);
-
+            clickPoint = cameraRaycaster.Hit.point;
             switch (cameraRaycaster.currentLayerHit)
             {
                 case Layer.Enemy:
-                    print("Not Moving to enemy");
+                    currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
                     break;
                 case Layer.Walkable:
-                    currentClickTarget = cameraRaycaster.Hit.point;
+                    currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
                     break;
                 default:
                     print("SHOULDNT BE HERE");
@@ -76,8 +81,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        var playerToClickPoint = currentClickTarget - transform.position;
-        if (playerToClickPoint.magnitude >= walkMoveStopRadius)
+        WalkToDestination();
+    }
+
+    private void WalkToDestination()
+    {
+        var playerToClickPoint = currentDestination - transform.position;
+        if (playerToClickPoint.magnitude >= 0)
         {
             thirdPersonCharacterCharacter.Move(playerToClickPoint, false, false);
         }
@@ -85,6 +95,23 @@ public class PlayerMovement : MonoBehaviour
         {
             thirdPersonCharacterCharacter.Move(Vector3.zero, false, false);
         }
+    }
+
+    Vector3 ShortDestination(Vector3 destination, float shortening)
+    {
+        var reductionVector = (destination - transform.position).normalized * shortening;
+        return destination - reductionVector;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(transform.position, currentDestination);
+        Gizmos.DrawSphere(currentDestination, 0.1f);
+        Gizmos.DrawSphere(clickPoint, 0.15f);
+
+        Gizmos.color = new Color(255f, 0f, 0f, .5f);
+        Gizmos.DrawSphere(transform.position, attackMoveStopRadius);
     }
 }
 
