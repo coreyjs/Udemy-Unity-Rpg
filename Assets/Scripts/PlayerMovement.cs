@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawSphere(clickPoint, 0.15f);
 
         Gizmos.color = new Color(255f, 0f, 0f, .5f);
-        Gizmos.DrawSphere(transform.position, attackMoveStopRadius);
+        Gizmos.DrawWireSphere(transform.position, attackMoveStopRadius);
     }
 }
 
