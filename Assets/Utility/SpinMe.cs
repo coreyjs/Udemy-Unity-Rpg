@@ -18,10 +18,10 @@ public class SpinMe : MonoBehaviour {
 	    float xDegreesPerFrame = Time.deltaTime / 60 * 360 * xRotationsPerMinute;
         transform.RotateAround (transform.position, transform.right, xDegreesPerFrame);
 
-		float yDegreesPerFrame = 0; // TODO COMPLETE ME
+		float yDegreesPerFrame = Time.deltaTime / 60 * 360 * yRotationsPerMinute;
         transform.RotateAround (transform.position, transform.up, yDegreesPerFrame);
 
-        float zDegreesPerFrame = 0; // TODO COMPLETE ME
+        float zDegreesPerFrame = Time.deltaTime / 60 * 360 * zRotationsPerMinute;
         transform.RotateAround (transform.position, transform.forward, zDegreesPerFrame);
 	}
 }
