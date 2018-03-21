@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 0640e312df714614ea2acd2248462724, type: 2}
 --- !u!1001 &14065233
 Prefab:
   m_ObjectHideFlags: 0
@@ -533,7 +533,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &786936822
 MeshRenderer:
@@ -853,11 +853,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 408730, guid: f7e2bd24e73d8403086fe36527a55879, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 408730, guid: f7e2bd24e73d8403086fe36527a55879, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.061981
+      value: 7.14
       objectReference: {fileID: 0}
     - target: {fileID: 408730, guid: f7e2bd24e73d8403086fe36527a55879, type: 2}
       propertyPath: m_LocalRotation.x
