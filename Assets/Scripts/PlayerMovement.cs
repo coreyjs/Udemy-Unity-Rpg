@@ -26,25 +26,6 @@ public class PlayerMovement : MonoBehaviour
         currentDestination = transform.position;
     }
 
-    // Fixed update is called in sync with physics
-    private void FixedUpdate()
-    {
-        // TODO Allow Player to map later
-        if(Input.GetKeyDown(KeyCode.G)) // g for gamepad 
-        {
-            isInDirectMode = !isInDirectMode;
-            currentDestination = transform.position; // clear the click target
-        }
-
-        if (isInDirectMode)
-        {
-            ProcessDirectMovement();
-        }
-        else
-        {
-            ProcessIndirectMovement(); // Mouse Movement    
-        }
-    }
 
     private void ProcessDirectMovement()
     {
@@ -61,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         thirdPersonCharacterCharacter.Move(movement, false, false);
     }
 
-    private void ProcessIndirectMovement()
+   /* private void ProcessIndirectMovement()
     {
         if (Input.GetMouseButton(0))
         {
@@ -82,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         WalkToDestination();
-    }
+    }*/
 
     private void WalkToDestination()
     {
