@@ -28,7 +28,11 @@ public class CursorAffordance : MonoBehaviour
 	void Start () 
     {
         cameraRayCaster = GetComponent<CameraRaycaster>();
-        cameraRayCaster.notifyLayerChangeObservers += OnLayerChanged;
+        if (cameraRayCaster != null)
+        {
+            cameraRayCaster.notifyLayerChangeObservers += OnLayerChanged;
+        }
+        
     }
 
     // Update is called once per frame
