@@ -10,6 +10,12 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float maxHealthPoints = 100f;
     [SerializeField] private float attackRadius = 4f;
     [SerializeField] float chaseRadius = 6f;
+    [SerializeField] float damagePerShot = 9;
+  
+
+    [SerializeField] GameObject projectileToUse;
+
+    [SerializeField] GameObject projectileSocket;
 
     private float currentHealthPoints = 100f;
 
@@ -32,10 +38,11 @@ public class Enemy : MonoBehaviour, IDamageable
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+
         if (distanceToPlayer <= attackRadius)
         {
            print(gameObject.name + " attacking player");
-           // TODO spawn projecticles
+           SpawnProjectile(); // SLow this down
         }
 
          if (distanceToPlayer <= chaseRadius)
@@ -46,6 +53,16 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             aiCharacterControl.SetTarget(transform);
         }
+    }
+
+    void SpawnProjectile()
+    {
+        GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
+        var projectileComponent = newProjectile.GetComponent<Projectile>();
+        projectileComponent.damageCaused = damagePerShot;
+        Vector3 unitVectorToPlayer = (player.transform.position - projectileSocket.transform.position).normalized;
+        
+        newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileComponent.projectileSpeed;
     }
 
     public void TakeDamage(float damage)

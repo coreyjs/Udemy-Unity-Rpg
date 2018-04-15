@@ -1374,13 +1374,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.93, y: 0, z: 14.19}
+  m_LocalPosition: {x: -52.923096, y: 0, z: -15.820404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 469942}
   - {fileID: 495908}
   - {fileID: 448028}
   - {fileID: 4636090148357144}
+  - {fileID: 4985748780108412}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2702,6 +2703,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 149790}
   m_IsPrefabParent: 1
+--- !u!1 &1220794244984184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4985748780108412}
+  m_Layer: 9
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1555006548137726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,6 +2747,19 @@ Transform:
   m_Father: {fileID: 408730}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4985748780108412
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1220794244984184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 408730}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114186579193539080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2757,6 +2786,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealthPoints: 100
   attackRadius: 4
+  chaseRadius: 6
+  damagePerShot: 9
+  projectileToUse: {fileID: 1036817464745268, guid: cc38dba5976469444b23a0dea69c9c07,
+    type: 2}
+  projectileSocket: {fileID: 1220794244984184}
 --- !u!114 &114807639308540638
 MonoBehaviour:
   m_ObjectHideFlags: 1
