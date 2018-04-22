@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float attackRadius = 4f;
     [SerializeField] float chaseRadius = 6f;
     [SerializeField] float damagePerShot = 9;
+    [SerializeField] float secondsBetweenShots = 0.5f;
   
 
     [SerializeField] GameObject projectileToUse;
@@ -23,6 +24,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private GameObject player = null;
 
+    bool isAttacking = false;
+
     public float healthAsPercentage
     {
         get { return currentHealthPoints /  maxHealthPoints;  }
@@ -32,17 +35,22 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         player = GameObject.FindGameObjectWithTag("Player");
         aiCharacterControl = GetComponent<AICharacterControl>();
-
     }
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer <= attackRadius)
+        if (distanceToPlayer <= attackRadius && !isAttacking)
         {
-           print(gameObject.name + " attacking player");
-           SpawnProjectile(); // SLow this down
+            isAttacking = true;
+            InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots); // TODO switch to coroutines
+        }
+        
+        if(distanceToPlayer > attackRadius)
+        {
+            isAttacking = false;
+            CancelInvoke();
         }
 
          if (distanceToPlayer <= chaseRadius)
@@ -59,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
         var projectileComponent = newProjectile.GetComponent<Projectile>();
-        projectileComponent.damageCaused = damagePerShot;
+        projectileComponent.SetDamage(damagePerShot);
         Vector3 unitVectorToPlayer = (player.transform.position - projectileSocket.transform.position).normalized;
         
         newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileComponent.projectileSpeed;

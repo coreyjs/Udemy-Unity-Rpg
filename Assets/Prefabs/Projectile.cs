@@ -7,7 +7,12 @@ public class Projectile : MonoBehaviour
 
 	public float projectileSpeed;
 
-	public float damageCaused { get; set; }
+	float damageCaused { get; set; }
+
+	public void SetDamage(float damage)
+	{
+		damageCaused = damage;
+	}
 
 	void OnTriggerEnter(Collider collider)
 	{
