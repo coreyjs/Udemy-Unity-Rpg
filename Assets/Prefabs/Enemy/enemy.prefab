@@ -2788,9 +2788,11 @@ MonoBehaviour:
   attackRadius: 4
   chaseRadius: 6
   damagePerShot: 9
+  secondsBetweenShots: 0.5
   projectileToUse: {fileID: 1036817464745268, guid: cc38dba5976469444b23a0dea69c9c07,
     type: 2}
   projectileSocket: {fileID: 1220794244984184}
+  verticalAimOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &114807639308540638
 MonoBehaviour:
   m_ObjectHideFlags: 1
