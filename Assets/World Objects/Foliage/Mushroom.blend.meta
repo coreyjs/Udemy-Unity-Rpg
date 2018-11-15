@@ -71,7 +71,7 @@ ModelImporter:
     13700026: Mushroom_012
     13700028: Mushroom_013
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
