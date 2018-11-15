@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] float damagePerHit = 10f;
     [SerializeField] float minTimeBetweenHits = 0.5f;
     [SerializeField] float maxAttackRange =2f;
+    [SerializeField] Weapon weaponInUse;
 
     GameObject currentTarget;
     private float currentHealthPoints;
@@ -20,9 +21,22 @@ public class Player : MonoBehaviour, IDamageable
 
     void Start() 
     {
+        RegisterForMouseClick();
+        currentHealthPoints = maxHealthPoints;
+        PutWeaponInHand();
+    }
+
+    private void PutWeaponInHand()
+    {
+        var weaponPrefab = weaponInUse.GetWeaponPrefab();
+        var weapon = Instantiate(weaponPrefab);
+        // TODO Move to correct place and child to hand
+    }
+
+    private void RegisterForMouseClick()
+    {
         cameraRaycaster = FindObjectOfType<CameraRaycaster>();
         cameraRaycaster.notifyMouseClickObservers += OnMouseClicked;
-        currentHealthPoints = maxHealthPoints;
     }
 
     void OnMouseClicked(RaycastHit raycastHit, int layerHit)
