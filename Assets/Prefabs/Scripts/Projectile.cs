@@ -5,7 +5,15 @@ using UnityEngine;
 public class Projectile : MonoBehaviour 
 {
 
-	public float projectileSpeed;
+	[SerializeField] float projectileSpeed;
+
+	[SerializeField] GameObject shooter;  // Can inspect when paused
+
+	const float DESTROY_DELAY = 0.01f;
+
+	public void SetShooter(GameObject shooter){
+		this.shooter = shooter;
+	}
 
 	float damageCaused { get; set; }
 
@@ -14,7 +22,19 @@ public class Projectile : MonoBehaviour
 		damageCaused = damage;
 	}
 
+	public float GetDefaultLaunchSpeed() {
+		return projectileSpeed;
+	}
+
 	void OnCollisionEnter(Collision collision)
+	{
+		var layerCollidedWith = collision.gameObject.layer;
+		if (layerCollidedWith != shooter.layer){
+			DamageIfDamageables(collision);
+		}
+	}
+
+	private void DamageIfDamageables(Collision collision)
 	{
 		Component damagableComponent = collision.gameObject.GetComponent(typeof(IDamageable));
 		print("damageabelComponent = " + damagableComponent);
@@ -23,7 +43,7 @@ public class Projectile : MonoBehaviour
 			(damagableComponent as IDamageable).TakeDamage(damageCaused);
 		}
 
-		Destroy(gameObject, 0.1f);
+		Destroy(gameObject, DESTROY_DELAY);
 	}
 
 }
