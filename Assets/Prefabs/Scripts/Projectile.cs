@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
 
 	[SerializeField] GameObject shooter;  // Can inspect when paused
 
+	const float DESTROY_DELAY = 0.01f;
+
 	public void SetShooter(GameObject shooter){
 		this.shooter = shooter;
 	}
@@ -26,6 +28,14 @@ public class Projectile : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
+		var layerCollidedWith = collision.gameObject.layer;
+		if (layerCollidedWith != shooter.layer){
+			DamageIfDamageables(collision);
+		}
+	}
+
+	private void DamageIfDamageables(Collision collision)
+	{
 		Component damagableComponent = collision.gameObject.GetComponent(typeof(IDamageable));
 		print("damageabelComponent = " + damagableComponent);
 		if(damagableComponent)
@@ -33,7 +43,7 @@ public class Projectile : MonoBehaviour
 			(damagableComponent as IDamageable).TakeDamage(damageCaused);
 		}
 
-		Destroy(gameObject, 0.1f);
+		Destroy(gameObject, DESTROY_DELAY);
 	}
 
 }

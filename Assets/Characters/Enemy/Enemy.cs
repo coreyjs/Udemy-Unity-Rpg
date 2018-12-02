@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (distanceToPlayer <= attackRadius && !isAttacking)
         {
             isAttacking = true;
-            InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots); // TODO switch to coroutines
+            InvokeRepeating("FireProjectile", 0f, secondsBetweenShots); // TODO switch to coroutines
         }
         
         if(distanceToPlayer > attackRadius)
@@ -72,6 +72,7 @@ public class Enemy : MonoBehaviour, IDamageable
         var projectileComponent = newProjectile.GetComponent<Projectile>();
         projectileComponent.SetDamage(damagePerShot);
         projectileComponent.SetShooter(gameObject);
+        
         Vector3 unitVectorToPlayer = (player.transform.position + verticalAimOffset - projectileSocket.transform.position).normalized;
         float projSpeed = projectileComponent.GetDefaultLaunchSpeed();
         newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projSpeed;
