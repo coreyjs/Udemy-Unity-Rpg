@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using RPG.CameraUI;
 
 public class Player : MonoBehaviour, IDamageable
 {
