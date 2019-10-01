@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
 using RPG.CameraUI;
 
-
+// Handles the main interaction of the isometric 3rd person player movement
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(AICharacterControl))]
 [RequireComponent(typeof (ThirdPersonCharacter))]
